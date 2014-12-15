@@ -24,6 +24,8 @@ module Pwnbox
           return symbol[1].to_i(16)
         end
       end
+
+      return nil
     end
 
     def address?(name, address)
