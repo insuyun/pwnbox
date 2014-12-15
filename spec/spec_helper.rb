@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'pwnbox'
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
   # These two settings work together to allow you to limit a spec run
