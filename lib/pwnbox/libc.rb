@@ -2,7 +2,6 @@ module Pwnbox
   # Retreive the function address from binary
   class Libc
     attr_reader :name, :path
-    LIBC_PATH = 'data/libc/'
 
     def initialize(name)
       @name = name
@@ -10,7 +9,7 @@ module Pwnbox
     end
 
     def libc_path
-      Dir["#{LIBC_PATH}/**/*"].each do |file|
+      Dir["#{LIBC_DIR}/**/*"].each do |file|
         basename = File.basename(file)
         return File.expand_path(file) if basename == @name
       end
