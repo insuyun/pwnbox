@@ -3,5 +3,5 @@ require 'pwnbox/libc'
 require 'pwnbox/libc_finder'
 
 module Pwnbox
-  LIBC_DIR = 'data/libc'
+  LIBC_DIR = 'assets/libc'
 end
