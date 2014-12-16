@@ -1,5 +1,7 @@
 # Pwnbox
 
+[![Build Status](https://travis-ci.org/jakkdu/pwnbox.svg?branch=master)](https://travis-ci.org/jakkdu/pwnbox)
+
 Capture-The-Flag(CTF) toolkit
 
 ## Installation
