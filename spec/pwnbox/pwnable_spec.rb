@@ -34,21 +34,21 @@ describe Pwnbox::Pwnable do
   end
 
   describe '.find_libc' do
-    before { @libc_name = 'd6f77e544734e61247fe2e91575d954decf1f646' }
+    let(:libc_name) { 'd6f77e544734e61247fe2e91575d954decf1f646' }
 
     it { is_expected.to respond_to(:find_libc) }
 
     context 'with a pair' do
       it 'gives the array of libc which contains the function' do
         input = ['system', 0x40100]
-        expect(subject.find_libc(input).map(&:name)).to include(@libc_name)
+        expect(subject.find_libc(input).map(&:name)).to include(libc_name)
       end
     end
 
     context 'with multiple pairs' do
       it 'gives the array of libc which contains the function' do
         input = [['system', 0x40100], ['__libc_start_main', 0x19990]]
-        expect(subject.find_libc(input).map(&:name)).to include(@libc_name)
+        expect(subject.find_libc(input).map(&:name)).to include(libc_name)
       end
     end
 
