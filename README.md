@@ -15,3 +15,13 @@ And then execute:
 Or install it yourself as:
 
     $ gem install pwnbox
+
+## Usage
+
+### Find a libc.so
+
+```ruby
+    libc = Pwnbox::LibcFinder.find(['system', 0x40100])
+    puts "Path : #{libc.path}"
+    puts "Read address : 0x%08X" % libc.find_address_by_name('read')
+```
