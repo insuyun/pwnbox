@@ -2,6 +2,6 @@
 module Pwnbox
   # Holds the Pwnbox version information.
   module Version
-    STRING = '0.0.2'
+    STRING = '0.0.3'
   end
 end
