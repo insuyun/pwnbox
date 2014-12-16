@@ -10,7 +10,7 @@ module Pwnbox
       return nil if (pairs.length % 2) == 1 || pairs.length == 0
 
 
-      Dir["#{LIBC_DIR}/**/*"].each do |name|
+      Dir["#{Pwnbox::libc_dir}/**/*"].each do |name|
          if not File.directory? name
             libc = Libc.new(File.basename(name))
             results = pairs.each_slice(2).map {|v| libc.address?(v[0], v[1]) }
