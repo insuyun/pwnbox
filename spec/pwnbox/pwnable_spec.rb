@@ -4,18 +4,16 @@ require 'spec_helper'
 describe Pwnbox::Pwnable do
   describe '.fsb' do
     it { is_expected.to respond_to(:fsb) }
- 
+
     target = 0x804a014
     # diff = difference between buffer and esp
     diff = 0xbffff30c - 0xbffff2f0
     value = [0xdeadbeef].pack('<I')
 
-
     context 'without pre-printed' do
       it 'generates a format string bug payload' do
-
-        expected = "\x14\xa0\x04\x08\x15\xa0\x04\x08"\
-          "\x16\xa0\x04\x08\x17\xa0\x04\x08"\
+        expected = "\x14\xa0\x04\x08\x15\xa0\x04\x08" \
+          "\x16\xa0\x04\x08\x17\xa0\x04\x08" \
           '%223c%7$n%207c%8$n%239c%9$n%49c%10$n'
           .force_encoding(Encoding::ASCII_8BIT)
         expect(subject.fsb(target, diff, value)).to eq(expected)
@@ -24,33 +22,31 @@ describe Pwnbox::Pwnable do
 
     context 'with pre-printed' do
       it 'generates a format string bug payload' do
-
-        expected = "\x14\xa0\x04\x08\x15\xa0\x04\x08"\
-          "\x16\xa0\x04\x08\x17\xa0\x04\x08"\
+        expected = "\x14\xa0\x04\x08\x15\xa0\x04\x08" \
+          "\x16\xa0\x04\x08\x17\xa0\x04\x08" \
           '%123c%7$n%207c%8$n%239c%9$n%49c%10$n'
           .force_encoding(Encoding::ASCII_8BIT)
         expect(subject.fsb(target, diff, value, 100)).to eq(expected)
-
       end
     end
   end
 
   describe '.find_libc' do
-    before { @libc_name = 'd6f77e544734e61247fe2e91575d954decf1f646' }
+    let(:libc_name) { 'd6f77e544734e61247fe2e91575d954decf1f646' }
 
     it { is_expected.to respond_to(:find_libc) }
 
     context 'with a pair' do
       it 'gives the array of libc which contains the function' do
         input = ['system', 0x40100]
-        expect(subject.find_libc(input).map(&:name)).to include(@libc_name)
+        expect(subject.find_libc(input).map(&:name)).to include(libc_name)
       end
     end
 
     context 'with multiple pairs' do
       it 'gives the array of libc which contains the function' do
         input = [['system', 0x40100], ['__libc_start_main', 0x19990]]
-        expect(subject.find_libc(input).map(&:name)).to include(@libc_name)
+        expect(subject.find_libc(input).map(&:name)).to include(libc_name)
       end
     end
 
@@ -73,5 +69,4 @@ describe Pwnbox::Pwnable do
       end
     end
   end
-
 end

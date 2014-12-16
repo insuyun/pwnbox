@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe Pwnbox::Libc do
-  before { @libc_name = 'd6f77e544734e61247fe2e91575d954decf1f646' }
-  subject(:libc) { described_class.new @libc_name }
+  let(:libc_name) { 'd6f77e544734e61247fe2e91575d954decf1f646' }
+  subject(:libc) { described_class.new(libc_name) }
   describe '#name' do
     it { is_expected.to respond_to(:name) }
 
     it 'gives the initialized name' do
-      expect(subject.name).to be(@libc_name)
+      expect(subject.name).to be(libc_name)
     end
   end
 

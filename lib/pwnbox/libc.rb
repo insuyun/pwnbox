@@ -20,7 +20,7 @@ module Pwnbox
       symbols = `readelf -s #{path}`.split("\n").map(&:split)
       symbols.each do |symbol|
         # symbol[1] : Symbol address
-        # Symbol[7] : Symbol name
+        # symbol[7] : Symbol name
         if symbol[7] && symbol[7].start_with?("#{name}@")
           return symbol[1].to_i(16)
         end
@@ -30,7 +30,7 @@ module Pwnbox
     end
 
     def address?(name, address)
-      (find_address_by_name(name) & 0xfff) == (address  & 0xfff)
+      (find_address_by_name(name) & 0xfff) == (address & 0xfff)
     end
   end
 end
