@@ -2,9 +2,9 @@
 module Pwnbox
   # For pwnable problem
   module Pwnable
-    def self.fsb(target, diff, value)
+    def self.fsb(target, diff, value, printed = 0)
       payload = (target..target + value.length - 1).to_a.pack('<I*')
-      printed = payload.length
+      printed = (printed + payload.length) % 256
 
       value.each_byte do |byte|
         more = byte - printed
