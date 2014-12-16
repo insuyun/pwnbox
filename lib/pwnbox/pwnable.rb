@@ -1,4 +1,4 @@
-# encoding : binary
+# encoding: utf-8
 module Pwnbox
   # For pwnable problem
   module Pwnable
