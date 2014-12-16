@@ -1,7 +1,8 @@
 require 'pwnbox/version'
 require 'pwnbox/libc'
-require 'pwnbox/libc_finder'
+require 'pwnbox/pwnable'
 
+# Module global methods and constants
 module Pwnbox
   LIBC_DIR = 'assets/libc'
 

@@ -9,7 +9,7 @@ module Pwnbox
     end
 
     def libc_path
-      Dir["#{Pwnbox::libc_dir}/**/*"].each do |file|
+      Dir["#{Pwnbox.libc_dir}/**/*"].each do |file|
         basename = File.basename(file)
         return File.expand_path(file) if basename == @name
       end
@@ -25,7 +25,7 @@ module Pwnbox
         end
       end
 
-      return nil
+      nil
     end
 
     def address?(name, address)
