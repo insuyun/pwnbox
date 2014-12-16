@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'pwnbox/version'
 require 'pwnbox/libc'
 require 'pwnbox/pwnable'

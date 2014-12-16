@@ -1,4 +1,4 @@
-# encoding: binary
+# encoding: utf-8
 require 'spec_helper'
 
 describe Pwnbox::Pwnable do
@@ -17,6 +17,7 @@ describe Pwnbox::Pwnable do
         expected = "\x14\xa0\x04\x08\x15\xa0\x04\x08"\
           "\x16\xa0\x04\x08\x17\xa0\x04\x08"\
           '%223c%7$n%207c%8$n%239c%9$n%49c%10$n'
+          .force_encoding(Encoding::ASCII_8BIT)
         expect(subject.fsb(target, diff, value)).to eq(expected)
       end
     end
@@ -27,6 +28,7 @@ describe Pwnbox::Pwnable do
         expected = "\x14\xa0\x04\x08\x15\xa0\x04\x08"\
           "\x16\xa0\x04\x08\x17\xa0\x04\x08"\
           '%123c%7$n%207c%8$n%239c%9$n%49c%10$n'
+          .force_encoding(Encoding::ASCII_8BIT)
         expect(subject.fsb(target, diff, value, 100)).to eq(expected)
 
       end

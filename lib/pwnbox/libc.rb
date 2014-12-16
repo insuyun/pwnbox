@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Pwnbox
   # Retreive the function address from binary
   class Libc
