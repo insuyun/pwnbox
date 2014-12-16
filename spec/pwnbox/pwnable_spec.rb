@@ -4,18 +4,16 @@ require 'spec_helper'
 describe Pwnbox::Pwnable do
   describe '.fsb' do
     it { is_expected.to respond_to(:fsb) }
- 
+
     target = 0x804a014
     # diff = difference between buffer and esp
     diff = 0xbffff30c - 0xbffff2f0
     value = [0xdeadbeef].pack('<I')
 
-
     context 'without pre-printed' do
       it 'generates a format string bug payload' do
-
-        expected = "\x14\xa0\x04\x08\x15\xa0\x04\x08"\
-          "\x16\xa0\x04\x08\x17\xa0\x04\x08"\
+        expected = "\x14\xa0\x04\x08\x15\xa0\x04\x08" \
+          "\x16\xa0\x04\x08\x17\xa0\x04\x08" \
           '%223c%7$n%207c%8$n%239c%9$n%49c%10$n'
         expect(subject.fsb(target, diff, value)).to eq(expected)
       end
@@ -23,12 +21,10 @@ describe Pwnbox::Pwnable do
 
     context 'with pre-printed' do
       it 'generates a format string bug payload' do
-
-        expected = "\x14\xa0\x04\x08\x15\xa0\x04\x08"\
-          "\x16\xa0\x04\x08\x17\xa0\x04\x08"\
+        expected = "\x14\xa0\x04\x08\x15\xa0\x04\x08" \
+          "\x16\xa0\x04\x08\x17\xa0\x04\x08" \
           '%123c%7$n%207c%8$n%239c%9$n%49c%10$n'
         expect(subject.fsb(target, diff, value, 100)).to eq(expected)
-
       end
     end
   end
@@ -71,5 +67,4 @@ describe Pwnbox::Pwnable do
       end
     end
   end
-
 end
