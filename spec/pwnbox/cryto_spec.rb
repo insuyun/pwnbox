@@ -2,7 +2,6 @@
 require 'spec_helper'
 
 describe Pwnbox::Crypto do
-
   describe 'gcd' do
     it { is_expected.to respond_to('gcd') }
 
@@ -37,15 +36,14 @@ describe Pwnbox::Crypto do
         expect(calculated_gcd).to be(test[2])
       end
     end
-
   end
 
   describe 'solve_linear_congruence_equation' do
     it { is_expected.to respond_to('solve_linear_congruence_equation') }
 
     it 'gives the root of "ax = b (mod m)" ' do
-      expect(subject.solve_linear_congruence_equation(3,4,5)).to be(3)
-      expect(subject.solve_linear_congruence_equation(151,338,7)).to be(4)
+      expect(subject.solve_linear_congruence_equation(3, 4, 5)).to be(3)
+      expect(subject.solve_linear_congruence_equation(151, 338, 7)).to be(4)
     end
 
     it 'gives nil when there is no root of the equation' do
@@ -64,7 +62,7 @@ describe Pwnbox::Crypto do
     end
 
     it 'gives nil when impossible to find modular inverse' do
-      tests = [[2,4], [3, 12], [9, 30]]
+      tests = [[2, 4], [3, 12], [9, 30]]
       tests.each do |test|
         expect(subject.mod_inverse(test[0], test[1])). to be_nil
       end
