@@ -7,8 +7,8 @@ module Pwnbox
       last_remainder, remainder = [a, b].map(&:abs)
       numbers = [0, 1, 1, 0]
       while remainder != 0
-        last_remainder, (quotient, remainder) \
-          = remainder, last_remainder.divmod(remainder)
+        last_remainder, (quotient, remainder) =
+          remainder, last_remainder.divmod(remainder)
         numbers = next_numbers(numbers, quotient)
       end
 
