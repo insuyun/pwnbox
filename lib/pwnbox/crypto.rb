@@ -1,7 +1,4 @@
 # encoding: utf-8
-
-require 'openssl'
-
 module Pwnbox
   # For crypto problem
   module Crypto
