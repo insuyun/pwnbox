@@ -1,6 +1,4 @@
 # encoding: utf-8
-require 'spec_helper'
-
 describe Pwnbox::Crypto do
   describe 'gcd' do
     it { is_expected.to respond_to('gcd') }

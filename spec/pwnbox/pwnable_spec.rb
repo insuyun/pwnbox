@@ -1,6 +1,4 @@
 # encoding: utf-8
-require 'spec_helper'
-
 describe Pwnbox::Pwnable do
   describe '.fsb' do
     it { is_expected.to respond_to(:fsb) }

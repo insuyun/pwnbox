@@ -1,6 +1,4 @@
 # encoding: utf-8
-require 'spec_helper'
-
 describe Pwnbox::Libc do
   let(:libc_name) { 'd6f77e544734e61247fe2e91575d954decf1f646' }
   subject(:libc) { described_class.new(libc_name) }
