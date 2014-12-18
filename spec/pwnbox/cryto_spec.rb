@@ -66,4 +66,38 @@ describe Pwnbox::Crypto do
       end
     end
   end
+
+  describe 'mod_prime_sqrt' do
+    it { is_expected.to respond_to('mod_prime_sqrt') }
+
+    p = OpenSSL::BN.generate_prime(512).to_i
+    q = 32_416_189_381
+    r = rand(p)
+    square_of_r = r.to_bn.mod_exp(2, p).to_i
+
+    it 'gives a root of x^2 = a mod p' do
+      expect(subject.mod_prime_sqrt(square_of_r, p)).to include(r)
+    end
+
+    it 'gives Argument Error when a is not quadratic residue' do
+      tests = [[2, 19], [3, 19], [2, 11], [6, 11]]
+      tests.each do |test|
+        expect do
+          subject.mod_prime_sqrt(test[0], test[1])
+        end.to raise_error(ArgumentError)
+      end
+    end
+
+    it 'gives ArgumentError when p is not prime' do
+      expect do
+        subject.mod_prime_sqrt(square_of_r, p * q)
+      end.to raise_error(ArgumentError)
+    end
+
+    it 'gives ArgumentError when p % 4 == 1' do
+      expect do
+        subject.mod_prime_sqrt(square_of_r, q)
+      end.to raise_error(ArgumentError)
+    end
+  end
 end

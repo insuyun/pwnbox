@@ -1,4 +1,7 @@
 # encoding: utf-8
+
+require 'openssl'
+
 module Pwnbox
   # For crypto problem
   module Crypto
@@ -29,7 +32,24 @@ module Pwnbox
       egcd[1] % m if egcd[0] == 1
     end
 
+    def self.mod_prime_sqrt(a, p)
+      if !prime?(p) || p % 4 == 1
+        fail ArgumentError, 'p must be a prime where p % 4 == 3'
+      end
+
+      if pow(a, (p - 1) / 2, p) == p - 1
+        fail ArgumentError, "#{a} is not quadratic residue"
+      end
+
+      root = pow(a, (p + 1) / 4, p)
+      [root, p - root]
+    end
+
     private
+
+    def self.pow(val, exp, mod)
+      val.to_bn.mod_exp(exp, mod).to_i
+    end
 
     def self.invert_sign(x, a)
       x * (a < 0 ? -1 : 1)
@@ -37,6 +57,10 @@ module Pwnbox
 
     def self.next_numbers(numbers, quotient)
       numbers.each_slice(2).map { |v| [v[1] - quotient * v[0], v[0]] }.flatten
+    end
+
+    def self.prime?(p)
+      p.to_bn.prime?
     end
   end
 end
