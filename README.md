@@ -79,5 +79,5 @@ Pwnbox::Crypto::mod_prime_sqrt(a, p)
 Pwnbox::Crypto::mod_composite_sqrt(a, p, q)
 
 # gives the result of chinese remainder theorem
-Pwnbox::Crypto::mod_composite_sqrt(remainders, mods)
+Pwnbox::Crypto::chinese_remainder_theorem(remainders, mods)
 ```
