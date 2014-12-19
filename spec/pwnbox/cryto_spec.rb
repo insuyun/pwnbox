@@ -79,7 +79,7 @@ describe Pwnbox::Crypto do
       expect(subject.mod_prime_sqrt(square_of_r, p)).to include(r)
     end
 
-    it 'gives Argument Error when a is not quadratic residue' do
+    it 'gives ArgumentError when a is not quadratic residue' do
       tests = [[2, 19], [3, 19], [2, 11], [6, 11]]
       tests.each do |test|
         expect do
@@ -98,6 +98,52 @@ describe Pwnbox::Crypto do
       expect do
         subject.mod_prime_sqrt(square_of_r, q)
       end.to raise_error(ArgumentError)
+    end
+  end
+
+  describe 'chinese_remainder_theorem' do
+    it { is_expected.to respond_to('chinese_remainder_theorem') }
+
+    p = OpenSSL::BN.generate_prime(512).to_i
+    q = OpenSSL::BN.generate_prime(512).to_i
+    r = OpenSSL::BN.generate_prime(512).to_i
+
+    it 'gives ArgumentError when mods are not pairwise coprime' do
+      n1 = p * q
+      n2 = p * r
+      n3 = q * r
+
+      expect do
+        subject.chinese_remainder_theorem(
+          [rand(n1), rand(n2), rand(n3)],
+          [n1, n2, n3])
+      end.to raise_error(ArgumentError)
+    end
+
+    it 'gives the solution of chinese remainder theorem' do
+      r1 = rand(p)
+      r2 = rand(q)
+      r3 = rand(r)
+
+      solution = subject.chinese_remainder_theorem([r1, r2, r3], [p, q, r])
+      expect(solution).not_to be_nil
+      expect(solution % p == r1).to be true
+      expect(solution % q == r2).to be true
+      expect(solution % r == r3).to be true
+    end
+  end
+
+  describe 'mod_composite_sqrt' do
+    it { is_expected.to respond_to('mod_composite_sqrt') }
+
+    p = OpenSSL::BN.generate_prime(512).to_i
+    q = OpenSSL::BN.generate_prime(512).to_i
+    n = p * q
+    r = rand(n)
+    square_of_r = r.to_bn.mod_exp(2, n).to_i
+
+    it 'gives the root of x^2 = a mod p * q' do
+      expect(subject.mod_composite_sqrt(square_of_r, p, q)).to include(r)
     end
   end
 end

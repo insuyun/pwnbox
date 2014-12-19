@@ -42,6 +42,33 @@ module Pwnbox
       [root, p - root]
     end
 
+    def self.chinese_remainder_theorem(remainders, mods)
+      check_arguments_of_crt(remainders, mods)
+
+      n = mods.reduce(&:*)
+      x = 0
+
+      mods.each_with_index do |ni, i|
+        x += remainders[i] * n / ni * mod_inverse(n / ni, ni)
+      end
+      x % n
+    end
+
+    def self.mod_composite_sqrt(a, p, q)
+      sqrt_p = mod_prime_sqrt(a, p)
+      sqrt_q = mod_prime_sqrt(a, q)
+
+      sqrt = []
+
+      sqrt_p.each do |x|
+        sqrt_q.each do |y|
+          sqrt.push(chinese_remainder_theorem([x, y], [p, q]))
+        end
+      end
+
+      sqrt
+    end
+
     private
 
     def self.pow(val, exp, mod)
@@ -58,6 +85,25 @@ module Pwnbox
 
     def self.prime?(p)
       p.to_bn.prime?
+    end
+
+    def self.coprime?(p, q)
+      gcd(p, q) == 1
+    end
+
+    def self.check_arguments_of_crt(remainders, mods)
+      if remainders.length != mods.length
+        fail ArgumentError, 'remainders and mods must have same length'
+      end
+
+      # check pairwise coprime
+      mods.length.times do |i|
+        (i + 1..mods.length - 1).each do |j|
+          unless coprime?(mods[i], mods[j])
+            fail ArgumentError, 'mods are not pairwise coprime'
+          end
+        end
+      end
     end
   end
 end
