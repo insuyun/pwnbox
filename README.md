@@ -60,3 +60,24 @@ exit GOT : 0x804a014, buffer : 0xbffff30c, esp : 0xbffff2e0
 ```ruby
 Pwnbox::Pwnable.fsb(0x804a014, 0xbffff30c - 0xbffff2f0, [0xdeadbeef].pack('<I'))
 ```
+
+### Cryptography
+```ruby
+# gives (gcd, x, y) where ax + by = gcd
+Pwnbox::Crypto::exteded_gcd(a, b)
+
+# gives root of ax = b mod m
+Pwnbox::Crypto::solve_linear_congruence_equation(a, b, m)
+
+# gives a modular inverse of a mod m
+Pwnbox::Crypto::mod_inverse(a, m)
+
+# gives root of x^2 = a mod p
+Pwnbox::Crypto::mod_prime_sqrt(a, p)
+
+# gives root of x^2 = a mod (p * q)
+Pwnbox::Crypto::mod_composite_sqrt(a, p, q)
+
+# gives the result of chinese remainder theorem
+Pwnbox::Crypto::mod_composite_sqrt(remainders, mods)
+```
