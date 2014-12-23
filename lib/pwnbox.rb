@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'openssl'
+require 'bigdecimal'
 require 'pwnbox/version'
 require 'pwnbox/libc'
 require 'pwnbox/pwnable'

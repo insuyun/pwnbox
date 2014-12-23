@@ -1,5 +1,7 @@
 # encoding: utf-8
 describe Pwnbox::Crypto do
+  include CryptoNumberGenerator
+
   describe 'gcd' do
     it { is_expected.to respond_to('gcd') }
 
@@ -144,6 +146,23 @@ describe Pwnbox::Crypto do
 
     it 'gives the root of x^2 = a mod p * q' do
       expect(subject.mod_composite_sqrt(square_of_r, p, q)).to include(r)
+    end
+  end
+
+  describe 'factorize_if_close_prime' do
+    it { is_expected.to respond_to('factorize_if_close_prime') }
+
+    it 'gives factorized value if its factor is close prime' do
+      n = CryptoNumberGenerator.generate_composite_of_close_primes
+      p = subject.factorize_if_close_prime(n)[0]
+      expect(n % p == 0).to be true
+    end
+
+    it 'gives nil if it is not close prime' do
+      p = OpenSSL::BN.generate_prime(512).to_i
+      q = OpenSSL::BN.generate_prime(256).to_i
+      n = p * q
+      expect(subject.factorize_if_close_prime(n)).to be_nil
     end
   end
 end
