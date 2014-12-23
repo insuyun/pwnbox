@@ -64,7 +64,7 @@ Pwnbox::Pwnable.fsb(0x804a014, 0xbffff30c - 0xbffff2f0, [0xdeadbeef].pack('<I'))
 ### Cryptography
 ```ruby
 # gives (gcd, x, y) where ax + by = gcd
-Pwnbox::Crypto::exteded_gcd(a, b)
+Pwnbox::Crypto::extended_gcd(a, b)
 
 # gives root of ax = b mod m
 Pwnbox::Crypto::solve_linear_congruence_equation(a, b, m)
