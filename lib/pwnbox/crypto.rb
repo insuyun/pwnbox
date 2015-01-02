@@ -81,6 +81,20 @@ module Pwnbox
       nil
     end
 
+    def self.find_nontrivial_factors(arr)
+      res = []
+
+      arr.length.times do |i|
+        (i + 1..arr.length - 1).each do |j|
+          d = gcd(arr[i], arr[j])
+          res.push([i, j, d]) unless d == 1
+        end
+      end
+
+      return nil if res.empty?
+      res
+    end
+
     private
 
     def self.pow(val, exp, mod)

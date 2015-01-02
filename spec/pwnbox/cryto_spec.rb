@@ -165,4 +165,23 @@ describe Pwnbox::Crypto do
       expect(subject.factorize_if_close_prime(n)).to be_nil
     end
   end
+
+  describe 'find_nontrivial_factors' do
+    it { is_expected.to respond_to('find_nontrivial_factors') }
+
+    p = OpenSSL::BN.generate_prime(512).to_i
+    q = OpenSSL::BN.generate_prime(512).to_i
+    r = OpenSSL::BN.generate_prime(512).to_i
+
+    it 'gives factors with index if it has nontrivial vectors' do
+      res = subject.find_nontrivial_factors([p * q, q * r, r * p])
+      expect(res).to include([0, 1, q])
+      expect(res).to include([0, 2, p])
+      expect(res).to include([1, 2, r])
+    end
+
+    it 'gives nil if there is no factors' do
+      expect(subject.find_nontrivial_factors([p, q, r])).to be_nil
+    end
+  end
 end
