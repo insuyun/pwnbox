@@ -2,7 +2,7 @@
 module Pwnbox
   # RSA attacks
   module RSA
-   def self.factorize_if_close_prime(n, trials = 65_536)
+    def self.factorize_if_close_prime(n, trials = 65_536)
       bits = n.to_s(2).length
       sqrt = BigDecimal(n.to_s).sqrt(bits).to_i
 
