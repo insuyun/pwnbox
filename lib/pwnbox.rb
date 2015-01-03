@@ -5,6 +5,7 @@ require 'pwnbox/version'
 require 'pwnbox/libc'
 require 'pwnbox/pwnable'
 require 'pwnbox/crypto'
+require 'pwnbox/aes'
 
 # Module global methods and constants
 module Pwnbox
