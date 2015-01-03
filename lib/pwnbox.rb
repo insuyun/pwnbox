@@ -2,9 +2,10 @@
 require 'openssl'
 require 'bigdecimal'
 require 'pwnbox/version'
+require 'pwnbox/number'
 require 'pwnbox/libc'
 require 'pwnbox/pwnable'
-require 'pwnbox/crypto'
+require 'pwnbox/rsa'
 require 'pwnbox/aes'
 
 # Module global methods and constants
