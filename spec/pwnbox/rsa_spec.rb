@@ -46,4 +46,16 @@ describe Pwnbox::RSA do
       expect(subject.wiener(e, p * q)).to match_array([p, q])
     end
   end
+
+  describe '.weak_hastad' do
+    ns = 3.times.map do
+      2.times.map { OpenSSL::BN.generate_prime(128).to_i }.reduce(&:*)
+    end
+    m = rand(ns.min)
+
+    it 'gives a message when multiple encrypted message is given' do
+      enc = ns.map { |n| (m**3) % n }
+      expect(subject.weak_hastad(enc, ns)).to eq(m)
+    end
+  end
 end

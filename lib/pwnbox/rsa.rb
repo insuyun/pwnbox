@@ -42,6 +42,11 @@ module Pwnbox
       nil
     end
 
+    def self.weak_hastad(ms, ns)
+      n = Number.chinese_remainder_theorem(ms, ns)
+      Number.nth_root(n, ms.length)
+    end
+
     private
 
     def self.calc_phi(e, d, k)

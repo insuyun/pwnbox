@@ -158,4 +158,15 @@ describe Pwnbox::Number do
       expect(roots).to match_array([a, b])
     end
   end
+
+  describe 'nth_root' do
+    it { is_expected.to respond_to('nth_root') }
+    a = rand(1000)
+    b = rand(1000)
+    c = a**b
+
+    it 'gives nth root of integer' do
+      expect(subject.nth_root(c, b)).to be(a)
+    end
+  end
 end

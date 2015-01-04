@@ -84,7 +84,7 @@ module Pwnbox
 
     def self.sqrt(num)
       root = BigDecimal(num.to_s).sqrt(bit_length(num) * 2)
-      if (root.round ** 2) == num
+      if (root.round**2) == num
         # perfect square
         root.round
       else
@@ -92,7 +92,32 @@ module Pwnbox
       end
     end
 
+    def self.nth_root(x, n)
+      # TODO : Support floating point
+      low, high = bound(x, n)
+      binary_search_nth_root(low, high, x, n)
+    end
+
     private
+
+    def self.bound(x, n)
+      high = 1
+      high *= 2 while high**n < x
+      [high / 2, high]
+    end
+
+    def self.binary_search_nth_root(low, high, x, n)
+      while low < high
+        mid = (low + high) / 2
+        if low < mid && mid**n < x
+          low = mid
+        elsif high > mid && mid**n > x
+          high = mid
+        else
+          return mid
+        end
+      end
+    end
 
     def self.pow(val, exp, mod)
       val.to_bn.mod_exp(exp, mod).to_i
