@@ -146,4 +146,16 @@ describe Pwnbox::Number do
       expect(subject.mod_composite_sqrt(square_of_r, p, q)).to include(r)
     end
   end
+
+  describe 'solve_quadratic_equation' do
+    it { is_expected.to respond_to('solve_quadratic_equation') }
+
+    a = rand(1000)
+    b = rand(1000)
+
+    it 'gives the root of quadratic equations' do
+      roots = subject.solve_quadratic_equation(1, -(a + b), a * b)
+      expect(roots).to match_array([a, b])
+    end
+  end
 end

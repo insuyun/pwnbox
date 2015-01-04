@@ -24,6 +24,15 @@ module Pwnbox
       (egcd[1] * b / egcd[0]) % m if (b  % egcd[0]) == 0
     end
 
+    def self.solve_quadratic_equation(a, b, c)
+      # ax^2 + bx + c = 0
+      x = b**2 - 4 * a * c
+      r1 = (-b  + sqrt(x)) / (2 * a)
+      r2 = (-b  - sqrt(x)) / (2 * a)
+
+      [r1, r2]
+    end
+
     def self.mod_inverse(a, m)
       egcd = extended_gcd(a, m)
       egcd[1] % m if egcd[0] == 1
@@ -67,6 +76,20 @@ module Pwnbox
       end
 
       sqrt
+    end
+
+    def self.bit_length(num)
+      num.to_s(2).length
+    end
+
+    def self.sqrt(num)
+      root = BigDecimal(num.to_s).sqrt(bit_length(num) * 2)
+      if (root.round ** 2) == num
+        # perfect square
+        root.round
+      else
+        root.to_f
+      end
     end
 
     private

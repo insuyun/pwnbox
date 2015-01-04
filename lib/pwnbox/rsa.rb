@@ -27,5 +27,30 @@ module Pwnbox
       return nil if res.empty?
       res
     end
+
+    def self.wiener(e, n)
+      convs = ContinuedFraction.convergents([e, n])
+
+      convs.each do |conv|
+        k, d = conv
+        phi = calc_phi(e, d, k)
+        next unless phi
+        p, q = Number.solve_quadratic_equation(1, -n + phi - 1, n).map(&:to_i)
+        return [p.to_i, q.to_i] if p != 0 && n % p == 0
+      end
+
+      nil
+    end
+
+    private
+
+    def self.calc_phi(e, d, k)
+      phi = e * d - 1
+      if k == 0 || phi % k != 0
+        nil
+      else
+        phi / k
+      end
+    end
   end
 end

@@ -32,7 +32,7 @@ module Pwnbox
     def self.convergents(r)
       c = to_contfrac(r)
       convs = []
-      (1..c.length - 1).each do |i|
+      c.length.times do |i|
         convs.push(to_rational(c[0..i]))
       end
       convs

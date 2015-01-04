@@ -37,4 +37,13 @@ describe Pwnbox::RSA do
       expect(subject.find_nontrivial_factors([p, q, r])).to be_nil
     end
   end
+
+  describe '.wiener' do
+    p, q, e = CryptoNumberGenerator.generate_wiener_weak_key
+    it { is_expected.to respond_to('wiener') }
+
+    it 'gives a factorization when key is weak' do
+      expect(subject.wiener(e, p * q)).to match_array([p, q])
+    end
+  end
 end
