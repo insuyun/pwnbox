@@ -16,17 +16,20 @@ describe Pwnbox::ModuloPolynomial do
       args = [a[0..2], a[2..-1]]
 
       poly = args.map do |arg|
-        [1, -arg.reduce(&:+),
-          arg.combination(2).map{ |v| v.reduce(&:*) }.reduce(&:+),
-          -(arg.reduce(&:*))]
+        [
+          1,
+          -arg.reduce(&:+),
+          arg.combination(2).map { |v| v.reduce(&:*) }.reduce(&:+),
+          -(arg.reduce(&:*))
+        ]
       end
 
-      gcd = ["gcd", 1, -a[2] % n]
-      factor = ["integer_factorization", p, q]
+      gcd = ['gcd', 1, -a[2] % n]
+      factor = ['integer_factorization', p, q]
 
       result = subject.gcd(poly[0], poly[1], n)
 
-      if (result[0] == "gcd")
+      if (result[0] == 'gcd')
         expect(result).to match_array(gcd)
       else
         expect(result).to match_array(factor)

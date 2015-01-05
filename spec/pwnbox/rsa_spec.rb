@@ -65,7 +65,7 @@ describe Pwnbox::RSA do
       a = b = 1
       m1 = rand(n)
       m2 = (a * m1 + b) % n
-      c1, c2 = [m1, m2].map { |v| (v ** 3) % n }
+      c1, c2 = [m1, m2].map { |v| (v**3) % n }
 
       expect(subject.franklin_reiter(a, b, c1, c2, n)).to eq(m1)
     end
