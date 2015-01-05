@@ -61,23 +61,20 @@ exit GOT : 0x804a014, buffer : 0xbffff30c, esp : 0xbffff2e0
 Pwnbox::Pwnable.fsb(0x804a014, 0xbffff30c - 0xbffff2f0, [0xdeadbeef].pack('<I'))
 ```
 
-### Cryptography
+### RSA
 ```ruby
-# gives (gcd, x, y) where ax + by = gcd
-Pwnbox::Crypto::extended_gcd(a, b)
+# factorize if p, q is close
+Pwnbox::RSA::factorize_if_close_prime(n)
 
-# gives root of ax = b mod m
-Pwnbox::Crypto::solve_linear_congruence_equation(a, b, m)
+# find non trivial factors
+Pwnbox::RSA::find_nontrivial_factors([n1, n2, ...])
 
-# gives a modular inverse of a mod m
-Pwnbox::Crypto::mod_inverse(a, m)
+# Wiener's attack
+Pwnbox::RSA::wiener(e, n)
 
-# gives root of x^2 = a mod p
-Pwnbox::Crypto::mod_prime_sqrt(a, p)
+# Weak Hastad's broadcast attack (Only for same plaintext)
+Pwnbox::RSA::weak_hastad([c_1, c_2, ..., c_e], [n_1, n_2, ..., n_e])
 
-# gives root of x^2 = a mod (p * q)
-Pwnbox::Crypto::mod_composite_sqrt(a, p, q)
-
-# gives the result of chinese remainder theorem
-Pwnbox::Crypto::chinese_remainder_theorem(remainders, mods)
+# Franklin-Reiter related message attack for m2 = a * m1 + b
+Pwnbox::RSA::franklin_reiter(a, b, c1, c2, n)
 ```
