@@ -42,9 +42,26 @@ module Pwnbox
       nil
     end
 
+    def self.decrypt(c, p, q, e)
+      d = Number.mod_inverse(e, (p - 1) * (q - 1))
+      Number.pow(c, d, p * q)
+    end
+
     def self.weak_hastad(ms, ns)
       n = Number.chinese_remainder_theorem(ms, ns)
       Number.nth_root(n, ms.length)
+    end
+
+    def self.franklin_reiter(a, b, c1, c2, n)
+      # work only e = 3
+      g1 = [1, 0, 0, -c1]
+      g2 = ModuloPolynomial.cube_of_linear_equation_with_constant(a, b, c2)
+      d = ModuloPolynomial.gcd(g2, g1, n)
+      if d[0] == 'integer_factorization'
+        decrypt(c1, p, q, 3)
+      else
+        -d[2] % n
+      end
     end
 
     private

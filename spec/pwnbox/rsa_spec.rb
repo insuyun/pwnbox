@@ -58,4 +58,16 @@ describe Pwnbox::RSA do
       expect(subject.weak_hastad(enc, ns)).to eq(m)
     end
   end
+
+  describe '.franklin_reiter' do
+    it 'decrypt message when m1 = a(m2) + b and public exponent is 3' do
+      n = 2.times.map { OpenSSL::BN.generate_prime(512).to_i }.reduce(&:*)
+      a = b = 1
+      m1 = rand(n)
+      m2 = (a * m1 + b) % n
+      c1, c2 = [m1, m2].map { |v| (v ** 3) % n }
+
+      expect(subject.franklin_reiter(a, b, c1, c2, n)).to eq(m1)
+    end
+  end
 end
