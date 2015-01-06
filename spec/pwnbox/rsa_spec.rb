@@ -80,4 +80,12 @@ describe Pwnbox::RSA do
       expect(subject.weak_partial_key_exposure(n, e, low)).to eq(d)
     end
   end
+
+  describe '.factorize_with_d' do
+    it 'gives p, q when p is given' do
+      e = 0x10001
+      p, q, n, d = Pwnbox::RSA.generate_key(1024, e)
+      expect(subject.factorize_with_d(n, e, d)).to match_array([p, q])
+    end
+  end
 end

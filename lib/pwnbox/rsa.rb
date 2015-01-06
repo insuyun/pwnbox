@@ -85,6 +85,20 @@ module Pwnbox
       nil
     end
 
+    def self.factorize_with_d(n, e, d)
+      k = d * e - 1
+      t = exponent_of_two(k)
+
+      loop do
+        g = rand(n)
+        1.upto(t).each do |i|
+          x = Number.pow(g, k / (2**i), n)
+          p = Number.gcd(x - 1, n)
+          return [p, n / p] if p != 1 && p != n
+        end
+      end
+    end
+
     private
 
     def self.calc_phi(e, d, k)
@@ -94,6 +108,15 @@ module Pwnbox
       else
         phi / k
       end
+    end
+
+    def self.exponent_of_two(d)
+      t = 0
+      while d.even?
+        d /= 2
+        t += 1
+      end
+      t
     end
   end
 end
