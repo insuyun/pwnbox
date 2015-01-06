@@ -2,6 +2,13 @@
 module Pwnbox
   # RSA attacks
   module RSA
+    def self.generate_key(bits = 1024, e = 0x10001)
+      p, q = 2.times.map { OpenSSL::BN.generate_prime(bits / 2).to_i }
+      n = p * q
+      d = Number.mod_inverse(e, (p - 1) * (q - 1))
+      return [p, q, n, d]
+    end
+
     def self.factorize_if_close_prime(n, trials = 65_536)
       bits = n.to_s(2).length
       sqrt = BigDecimal(n.to_s).sqrt(bits).to_i
@@ -62,6 +69,20 @@ module Pwnbox
       else
         -d[2] % n
       end
+    end
+
+    def self.weak_partial_key_exposure(n, e, low)
+      r = rand(n)
+      c = Number.pow(r, e, n)
+
+      (1..e).each do |k|
+        d = Rational(k * n + 1, e).round
+        d >>= low.length
+        d <<= low.length
+        d |= low.to_i(2)
+        return d if Number.pow(c, d, n) == r
+      end
+      nil
     end
 
     private

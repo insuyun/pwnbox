@@ -70,4 +70,14 @@ describe Pwnbox::RSA do
       expect(subject.franklin_reiter(a, b, c1, c2, n)).to eq(m1)
     end
   end
+
+  describe '.weak_partial_key_exposure' do
+    it 'gives d when partial key exposure' do
+      e = 3
+      p, q, n, d = Pwnbox::RSA.generate_key(1024, e)
+      binary_d = d.to_s(2)
+      low = binary_d[-(binary_d.length / 2 + 8)..-1]
+      expect(subject.weak_partial_key_exposure(n, e, low)).to eq(d)
+    end
+  end
 end
