@@ -8,6 +8,7 @@ require 'pwnbox/modulo_polynomial'
 require 'pwnbox/libc'
 require 'pwnbox/pwnable'
 require 'pwnbox/rsa'
+require 'pwnbox/rabin'
 require 'pwnbox/aes'
 
 # Module global methods and constants
