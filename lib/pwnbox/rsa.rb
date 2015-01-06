@@ -6,7 +6,7 @@ module Pwnbox
       p, q = 2.times.map { OpenSSL::BN.generate_prime(bits / 2).to_i }
       n = p * q
       d = Number.mod_inverse(e, (p - 1) * (q - 1))
-      return [p, q, n, d]
+      [p, q, n, d]
     end
 
     def self.factorize_if_close_prime(n, trials = 65_536)
