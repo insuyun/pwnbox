@@ -2,6 +2,7 @@
 module Pwnbox
   # Elgmal encryption
   module ElGamal
+    # Private key
     class PrivKey
       attr_reader :p, :g, :h, :x
 
@@ -20,6 +21,7 @@ module Pwnbox
       end
     end
 
+    # Public key
     class PubKey
       attr_reader :p, :g, :h
 
@@ -34,11 +36,11 @@ module Pwnbox
     end
 
     def self.generate_key(bits = 512)
-      p = OpenSSL::BN.generate_prime(512).to_i
+      p = OpenSSL::BN.generate_prime(bits).to_i
       g, x = 2.times.map { rand(2..p - 2) }
       h = Number.pow(g, x, p)
       pub = PubKey.new(p, g, h)
-      priv = PrivKey.new(p,g, h, x)
+      priv = PrivKey.new(p, g, h, x)
 
       [pub, priv]
     end
