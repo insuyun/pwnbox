@@ -7,9 +7,12 @@ require 'pwnbox/continued_fraction'
 require 'pwnbox/modulo_polynomial'
 require 'pwnbox/libc'
 require 'pwnbox/pwnable'
+
+# Cryptography
 require 'pwnbox/rsa'
 require 'pwnbox/rabin'
 require 'pwnbox/aes'
+require 'pwnbox/elgamal'
 
 # Module global methods and constants
 module Pwnbox
