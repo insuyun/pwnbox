@@ -61,6 +61,32 @@ exit GOT : 0x804a014, buffer : 0xbffff30c, esp : 0xbffff2e0
 Pwnbox::Pwnable.fsb(0x804a014, 0xbffff30c - 0xbffff2f0, [0xdeadbeef].pack('<I'))
 ```
 
+### Number theory
+```ruby
+Pwnbox::Number.gcd(a, b)
+
+# return [gcd, x, y] where x * a + y * b = gcd
+Pwnbox::Number.extended_gcd(a, b)
+
+# solve ax = b mod m
+Pwnbox::Number.solve_linear_congruence_equation(a, b, m)
+
+# return a^-1 mod n
+Pwnbox::Number.mod_inverse(a, n)
+
+# return x where x^2 = a mod p
+Pwnbox::Number.mod_prime_sqrt(a, p)
+
+# return x where x^2 = a mod p * q
+Pwnbox::Number.mod_composite_sqrt(a, p, q)
+
+# chinese remainder theorem
+Pwnbox::Number.chinese_remainder_theorem([a1, a2, a3], [n1, n2, n3])
+
+# nth root, works for big integer which is pefect n square
+Pwnbox::Number.nth_root(a)
+```
+
 ### RSA
 ```ruby
 # factorize if p, q is close
@@ -77,4 +103,33 @@ Pwnbox::RSA::weak_hastad([c_1, c_2, ..., c_e], [n_1, n_2, ..., n_e])
 
 # Franklin-Reiter related message attack for m2 = a * m1 + b
 Pwnbox::RSA::franklin_reiter(a, b, c1, c2, n)
+```
+
+### ElGamal
+```ruby
+# encrypt
+pub = Pwnbox::ElGamal::PubKey.new(p, g, h)
+pub.encrypt(m)
+
+# decrypt
+priv = Pwnbox::ElGamal::PrivKey.new(p, g, x)
+priv.decrypt(c)
+```
+
+### Rabin
+```ruby
+# encrypt
+Pwnbox::Rabin.encrypt(m, n)
+
+# decrypt
+Pwnbox::Rabin.decrypt(c, p, q)
+
+# factorize if two plaintexts are given
+Pwnbox::Rabin.factorize([r, s])
+```
+
+### AES
+```ruby
+# inverse round key
+Pwnbox::AES.inverse_round_key(round_key)
 ```
