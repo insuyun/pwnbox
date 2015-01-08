@@ -98,6 +98,15 @@ module Pwnbox
       binary_search_nth_root(low, high, x, n)
     end
 
+    def self.s_to_i(s)
+      s = s.force_encoding('binary')
+      s.unpack('H*')[0].to_i(16)
+    end
+
+    def self.i_to_s(i)
+      [i.to_s(16)].pack('H*')
+    end
+
     private
 
     def self.bound(x, n)

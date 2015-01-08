@@ -4,10 +4,10 @@ module Pwnbox
   module ElGamal
     # Private key
     class PrivKey
-      attr_reader :p, :g, :h, :x
+      attr_reader :p, :g, :x
 
-      def initialize(p, g, h, x)
-        @p, @g, @h, @x = p, g, h, x
+      def initialize(p, g, x)
+        @p, @g, @x = p, g, x
       end
 
       def pubkey
@@ -40,7 +40,7 @@ module Pwnbox
       g, x = 2.times.map { rand(2..p - 2) }
       h = Number.pow(g, x, p)
       pub = PubKey.new(p, g, h)
-      priv = PrivKey.new(p, g, h, x)
+      priv = PrivKey.new(p, g, x)
 
       [pub, priv]
     end

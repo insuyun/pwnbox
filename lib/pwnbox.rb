@@ -13,6 +13,7 @@ require 'pwnbox/rsa'
 require 'pwnbox/rabin'
 require 'pwnbox/aes'
 require 'pwnbox/elgamal'
+require 'pwnbox/ecc'
 
 # Module global methods and constants
 module Pwnbox
